@@ -21,7 +21,7 @@ const handleDomo = (e, onDomoAdded) => {
 };
 
 const DomoForm = (props) => {
-    return(
+    return (
         <form id="domoForm"
             onSubmit={(e) => handleDomo(e, props.triggerReload)}
             name="domoForm"
@@ -29,12 +29,21 @@ const DomoForm = (props) => {
             method="POST"
             className="domoForm"
         >
-            <label htmlFor="name">Name: </label>
-            <input id="domoName" type="text" name="name" placeholder="Domo Name" />
-            <label htmlFor="age">Age: </label>
-            <input id="domoAge" type="number" min="0" name="age" />
-            <label htmlFor="level">Level: </label>
-            <input id="domoLevel" type="number" min="1" name="level" />
+            <div className="formField">
+                <label htmlFor="name">Name: </label>
+                <input id="domoName" type="text" name="name" placeholder="Domo Name" />
+            </div>
+
+            <div className="formField">
+                <label htmlFor="age">Age: </label>
+                <input id="domoAge" type="number" min="0" name="age" />
+            </div>
+
+            <div className="formField">
+                <label htmlFor="level">Level: </label>
+                <input id="domoLevel" type="number" min="1" name="level" />
+            </div>
+
             <input className="makeDomoSubmit" type="submit" value="Make Domo" />
         </form>
     );
