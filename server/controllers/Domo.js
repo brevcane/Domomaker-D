@@ -42,8 +42,27 @@ const getDomos = async (req, res) => {
     }
 }
 
+const deleteDomo = async (req, res) => {
+    const { id } = req.body;
+    if (!id) {
+        return res.status(400).json({error: "Domo ID is required"});
+    }
+
+    try {
+        const deletedDomo = await Domo.findByIdAndDelete(id);
+        if (!deletedDomo) {
+            return res.status(404).json({ error: "Domo not found!" });
+        }
+        return res.status(200).json({ message: "Domo deleted successfully" });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ error: "Error occured while deleting the domo" });
+    }
+};
+
 module.exports = {
   makerPage,
   makeDomo,
   getDomos,
+  deleteDomo,
 };

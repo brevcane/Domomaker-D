@@ -61,6 +61,24 @@ const DomoList = (props) => {
         loadDomosFromServer();
     }, [props.reloadDomos]);
 
+    const deleteDomo = async (id) => {
+        const response = await fetch('/deleteDomo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            setDomos(domos.filter(domo => domo._id !== id));
+        } else {
+            alert(data.error || 'Error deleting Domo');
+        }
+    };
+
     if(domos.length === 0) {
         return (
             <div className="domoList">
@@ -76,6 +94,9 @@ const DomoList = (props) => {
                 <h3 className="domoName">Name: {domo.name}</h3>
                 <h3 className="domoAge">Age: {domo.age}</h3>
                 <h3 className="domoLevel">Level: {domo.level}</h3>
+                <div className="domoDeleteButtonContainer">
+                    <button onClick={() => deleteDomo(domo._id)} className="deleteDomoButton"> delete </button>
+                </div>
             </div>
         );
     });
